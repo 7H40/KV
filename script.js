@@ -1,22 +1,33 @@
 function generateFrequencies() {
+    const startFreqInput = document.getElementById('startFreq');
+    const numFreqInput = document.getElementById('numFreq');
+    
+    if (!startFreqInput || !numFreqInput) {
+        alert('Элементы не найдены на странице');
+        return;
+    }
+
     const minFreq = 30;
     const maxFreq = 512;
-    const numItemsInput = parseInt(document.getElementById('numFreq').value) || 6;
+    
+    const numItemsInput = parseInt(numFreqInput.value) || 6;
     if (isNaN(numItemsInput) || numItemsInput < 3 || numItemsInput > 16) {
         alert('Введите общее количество элементов от 3 до 16');
         return;
     }
-    const numFreqs = numItemsInput - 1; // количество частот без перехода
-    const startFreqInput = document.getElementById('startFreq').value;
-    const startFreq = parseFloat(startFreqInput);
+    
+    const numFreqs = numItemsInput - 1;
+    const startFreq = parseFloat(startFreqInput.value);
+    
     if (isNaN(startFreq) || startFreq < minFreq || startFreq > maxFreq) {
         alert(`Введите корректную начальную частоту от ${minFreq} до ${maxFreq}`);
         return;
     }
+    
     let freq = startFreq;
     const frequencies = [];
 
-    frequencies.push(freq.toFixed(freq % 1 === 0 ? 0 : 1)); // добавляем начальную частоту
+    frequencies.push(freq.toFixed(freq % 1 === 0 ? 0 : 1));
   
     for (let i = 1; i < numFreqs; i++) {
         const increment = Math.random() * 50 + 1; 
@@ -34,12 +45,23 @@ function generateFrequencies() {
     const transition = transitions[Math.floor(Math.random() * transitions.length)];
     frequencies.push('+' + transition);
 
-    const output = frequencies.join(' || ');// разделитель
+    const output = frequencies.join(' || ');
     const outputDiv = document.getElementById('output');
+    
+    if (!outputDiv) {
+        alert('Элемент вывода не найден');
+        return;
+    }
+    
     outputDiv.innerHTML = '';
     const p = document.createElement('p');
     p.textContent = output;
     p.style.cursor = 'pointer';
+    p.style.padding = '10px';
+    p.style.backgroundColor = '#e8f5e9';
+    p.style.borderRadius = '3px';
+    p.title = 'Нажмите для копирования';
+    
     p.onclick = async () => {
         try {
             await navigator.clipboard.writeText(output);
@@ -48,5 +70,6 @@ function generateFrequencies() {
             alert('Не удалось скопировать');
         }
     };
+    
     outputDiv.appendChild(p);
 }
