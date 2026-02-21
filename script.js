@@ -24,7 +24,7 @@ function generateFrequencies() {
         frequencies.push(freq.toFixed(freq % 1 === 0 ? 0 : 1));
     }
 
-    const transitions = [5, 0.5];
+    const transitions = [0.5, 1.5, 2.5, 3.5, 4.5];
     const transition = transitions[Math.floor(Math.random() * transitions.length)];
     frequencies.push('+' + transition);
 
