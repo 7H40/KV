@@ -2,8 +2,8 @@ function generateFrequencies() {
     const minFreq = 30;
     const maxFreq = 512;
     const numItemsInput = parseInt(document.getElementById('numFreq').value) || 6;
-    if (isNaN(numItemsInput) || numItemsInput < 4 || numItemsInput > 16) {
-        alert('Введите общее количество элементов от 4 до 16');
+    if (isNaN(numItemsInput) || numItemsInput < 3 || numItemsInput > 16) {
+        alert('Введите общее количество элементов от 3 до 16');
         return;
     }
     const numFreqs = numItemsInput - 1; // количество частот без перехода
