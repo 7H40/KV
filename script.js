@@ -1,3 +1,8 @@
+function toggleTeams() {
+    const checked = document.getElementById('useTeams').checked;
+    document.getElementById('teamsOptions').style.display = checked ? 'block' : 'none';
+}
+
 function generateFrequencies() {
     const minFreq = 30;
     const maxFreq = 512;
@@ -7,12 +12,12 @@ function generateFrequencies() {
         return;
     }
     const numFreqs = numItemsInput - 1; // количество частот без перехода
-    const numTeamsInput = parseInt(document.getElementById('numTeams').value) || 1;
-    if (isNaN(numTeamsInput) || numTeamsInput < 1 || numTeamsInput > 5) {
+    const useTeams = document.getElementById('useTeams').checked;
+    const numTeams = useTeams ? (parseInt(document.getElementById('numTeams').value) || 1) : 1;
+    if (useTeams && (isNaN(numTeams) || numTeams < 1 || numTeams > 5)) {
         alert('Введите количество fireteams от 1 до 5');
         return;
     }
-    const numTeams = numTeamsInput;
     const startFreqInput = document.getElementById('startFreq').value;
     const startFreq = parseFloat(startFreqInput);
     if (isNaN(startFreq) || startFreq < minFreq || startFreq > maxFreq) {
@@ -53,7 +58,7 @@ function generateFrequencies() {
 
         const teamOutput = frequencies.join(' || ');
         const p = document.createElement('p');
-        p.textContent = `Fireteam ${team}: ${teamOutput}`;
+        p.textContent = numTeams === 1 ? teamOutput : `ft${team}: ${teamOutput}`;
         p.style.cursor = 'pointer';
         p.onclick = async () => {
             try {
