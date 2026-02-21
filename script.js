@@ -1,12 +1,12 @@
 function generateFrequencies() {
     const minFreq = 30;
     const maxFreq = 512;
-    const numFreqsInput = parseInt(document.getElementById('numFreq').value) || 5;
-    if (isNaN(numFreqsInput) || numFreqsInput < 3 || numFreqsInput > 15) {
-        alert('Введите количество частот от 3 до 15');
+    const numItemsInput = parseInt(document.getElementById('numFreq').value) || 6;
+    if (isNaN(numItemsInput) || numItemsInput < 4 || numItemsInput > 16) {
+        alert('Введите общее количество элементов от 4 до 16');
         return;
     }
-    const numFreqs = numFreqsInput;
+    const numFreqs = numItemsInput - 1; // количество частот без перехода
     const startFreqInput = document.getElementById('startFreq').value;
     const startFreq = parseFloat(startFreqInput);
     if (isNaN(startFreq) || startFreq < minFreq || startFreq > maxFreq) {
