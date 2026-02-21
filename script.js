@@ -2,11 +2,12 @@ function generateFrequencies() {
     const minFreq = 30;
     const maxFreq = 512;
     const startFreqInput = document.getElementById('startFreq').value;
-    if (!startFreqInput || startFreqInput < minFreq || startFreqInput > maxFreq) {
+    const startFreq = parseFloat(startFreqInput);
+    if (isNaN(startFreq) || startFreq < minFreq || startFreq > maxFreq) {
         alert('Введите корректную начальную частоту от 30 до 512');
         return;
     }
-    let freq = parseFloat(startFreqInput);
+    let freq = startFreq;
     const numFreqs = Math.floor(Math.random() * 6) + 5;
     const frequencies = [];
 
