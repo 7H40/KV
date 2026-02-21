@@ -1,19 +1,27 @@
 function generateFrequencies() {
     const minFreq = 30;
     const maxFreq = 512;
-    const numFreqs = Math.floor(Math.random() * 6) + 5; // от 5 до 10 частот
+    const startFreqInput = document.getElementById('startFreq').value;
+    if (!startFreqInput || startFreqInput < minFreq || startFreqInput > maxFreq) {
+        alert('Введите корректную начальную частоту от 30 до 512');
+        return;
+    }
+    let freq = parseFloat(startFreqInput);
+    const numFreqs = Math.floor(Math.random() * 6) + 5;
     const frequencies = [];
 
-    for (let i = 0; i < numFreqs; i++) {
-        let freq = Math.random() * (maxFreq - minFreq) + minFreq; 
-        if (Math.random() < 0.5) {
-            freq = Math.round(freq * 2) / 2;
-        } else {
-            freq = Math.round(freq);
+    frequencies.push(freq.toFixed(freq % 1 === 0 ? 0 : 1)); // добавляем начальную частоту
+  
+    for (let i = 1; i < numFreqs; i++) {
+        const increment = Math.random() * 50 + 1; 
+        freq += increment;
+        if (freq > maxFreq) freq = minFreq + (freq - maxFreq); 
+        if (Math.random() < 0.3) {
+            const decimal = Math.random() < 0.5 ? 0.5 : 0.4;
+            freq += decimal;
         }
-
         freq = Math.max(minFreq, Math.min(maxFreq, freq));
-        frequencies.push(freq.toFixed(freq % 1 === 0 ? 0 : 1));// округляем до 0 или 1 знака после запятой в зависимости от наличия дробной части
+        frequencies.push(freq.toFixed(freq % 1 === 0 ? 0 : 1));
     }
 
     const transitions = [5, 0.5];
